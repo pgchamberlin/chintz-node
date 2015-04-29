@@ -1,0 +1,25 @@
+{
+  "name": "chintz-js",
+  "version": "0.0.1",
+  "description": "A Chintz client",
+  "main": "lib/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BBC-News/chintz-js.git"
+  },
+  "keywords": [
+    "chintz"
+  ],
+  "author": "Peter Chamberlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BBC-News/chintz-js/issues"
+  },
+  "homepage": "https://github.com/BBC-News/chintz-js"
+}
