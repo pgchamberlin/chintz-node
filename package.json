@@ -24,6 +24,7 @@
   "homepage": "https://github.com/BBC-News/chintz-js",
   "devDependencies": {
     "mocha": "",
+    "mu2": "",
     "should": ""
   }
 }
