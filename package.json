@@ -22,9 +22,14 @@
     "url": "https://github.com/BBC-News/chintz-js/issues"
   },
   "homepage": "https://github.com/BBC-News/chintz-js",
+  "dependencies": {
+    "glob": ">= 5.0.5",
+    "js-yaml": "",
+    "mu2": ">= 0.5.20"
+  },
   "devDependencies": {
     "mocha": "",
-    "mu2": "",
-    "should": ""
+    "should": "",
+    "sinon": ""
   }
 }
