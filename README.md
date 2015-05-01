@@ -1,2 +1,4 @@
 # chintz-js
-JavaScript Chintz client
+Node.js Chintz client
+
+####  This is work in progress
