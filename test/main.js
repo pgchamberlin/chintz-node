@@ -25,42 +25,95 @@ describe('prepare', function() {
 
 describe('render', function() {
     describe('unprepared element', function() {
-        it('returns an empty string', function() {
-            var chintz = new Chintz('/../test/chintz');
-            var result = chintz.render(validElementName);
-            result.should.eql("");
+        var expected = "";
+        var called = false;
+        beforeEach(function(done) {
+            var callback = function(s) {
+                called = true;
+                s.should.eql(expected);
+                done();
+            };
+            new Chintz('/../test/chintz')
+                .prepare(invalidElementName)
+                .render(invalidElementName, null, callback);
+        });
+        it('calls back with an empty string', function() {
+            called.should.be.true;
         });
     });
     describe('prepared element', function() {
         describe('with no data', function() {
-            it('calls back with the element\'s template', function() {
-                var template = "Test atom template ";
+            var expected = "Test atom template \n";
+            var called = false;
+            beforeEach(function(done) {
+                var expected = "Test atom template \n";
                 var callback = function(s) {
-                    s.should.eql(template);
+                    called = true;
+                    s.should.eql(expected);
+                    done();
                 };
-                var chintz = new Chintz('/../test/chintz');
-                var result = chintz.prepare(validElementName)
+                new Chintz('/../test/chintz')
+                    .prepare(validElementName)
                     .render(validElementName, null, callback);
+            });
+            it('calls back with the template', function() {
+                called.should.be.true;
+            });
+        });
+        describe('with bad data', function() {
+            var called = false;
+            beforeEach(function(done) {
+                var expected = "Test atom template \n";
+                var callback = function(s) {
+                    called = true;
+                    s.should.eql(expected);
+                    done();
+                };
+                new Chintz('/../test/chintz')
+                    .prepare(validElementName)
+                    .render(validElementName, { non_existent_key: 'blah' }, callback);
+            });
+            it('calls back with the template', function() {
+                called.should.be.true;
             });
         });
         describe('with good data', function() {
             var called = false;
             beforeEach(function(done) {
                 var string = "foobar";
-                var templated = "Test atom template " + string + "\n";
+                var expected = "Test atom template " + string + "\n";
                 var callback = function(s) {
                     called = true;
-                    s.should.eql(templated);
+                    s.should.eql(expected);
                     done();
                 };
                 new Chintz('/../test/chintz')
                     .prepare(validElementName)
                     .render(validElementName, { string: string }, callback);
             });
-            it('calls back the templated data', function() {
+            it('calls back with the template, expected', function() {
                 called.should.be.true;
             });
         });
     });
 });
 
+xdescribe('getDependencies', function() {
+    describe('get non existent deps', function() {
+        var called = false;
+        beforeEach(function(done) {
+            var expected = [ "deps" ];
+            var callback = function(d) {
+                called = true;
+                d.should.eql(expected);
+                done();
+            };
+            new Chintz('/../test/chintz')
+                .prepare(validElementName)
+                .getDependencies('nonexistent');
+        });
+        it('calls back with an empty array', function() {
+            called.should.be.true;
+        });
+    });
+});
