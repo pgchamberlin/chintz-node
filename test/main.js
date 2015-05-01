@@ -121,12 +121,12 @@ describe('render', function() {
     });
 });
 
-xdescribe('getDependencies', function() {
+describe('getDependencies', function() {
 
     describe('get non existent deps', function() {
 
         beforeEach(function(done) {
-            var expected = [ "deps" ];
+            var expected = [];
             var callback = function(d) {
                 called = true;
                 d.should.eql(expected);
@@ -135,10 +135,59 @@ xdescribe('getDependencies', function() {
             called = false;
             new Chintz('/../test/chintz')
                 .prepare(validElementName)
-                .getDependencies('nonexistent');
+                .getDependencies('nonexistent', callback);
         });
 
         it('calls back with an empty array', function() {
+            called.should.be.true;
+        });
+    });
+
+    describe('get existing dependencies', function() {
+
+        beforeEach(function(done) {
+            var expected = [ "test dependency" ];
+            var callback = function(d) {
+                called = true;
+                d.should.eql(expected);
+                done();
+            };
+            called = false;
+            new Chintz('/../test/chintz')
+                .prepare(validElementName)
+                .getDependencies('test_deps', callback);
+        });
+
+        it('calls back with the expected dependencies', function() {
+            called.should.be.true;
+        });
+    });
+
+    describe('get handled dependencies', function() {
+
+        beforeEach(function(done) {
+            var expected = [ "a handled dependency" ];
+            var callback = function(d) {
+                called = true;
+                d.should.eql(expected);
+                done();
+            };
+            called = false;
+            new Chintz('/../test/chintz')
+                .registerHandlers(
+                    {
+                        'handled_test_deps': {
+                            format: function(deps) {
+                                return expected
+                            }
+                        }
+                    }
+                )
+                .prepare(validElementName)
+                .getDependencies('handled_test_deps', callback);
+        });
+
+        it('calls back with the expected dependencies', function() {
             called.should.be.true;
         });
     });

@@ -1,2 +1,4 @@
 name: test-atom
-dependencies: []
+dependencies:
+  test_deps: [ "test dependency" ]
+  handled_test_deps: [ "an unhandled dependency" ]
