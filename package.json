@@ -1,7 +1,7 @@
 {
-  "name": "chintz-js",
+  "name": "chintz-node",
   "version": "0.0.1",
-  "description": "A Chintz client",
+  "description": "A Chintz client for Node",
   "main": "lib/main.js",
   "directories": {
     "test": "test"
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BBC-News/chintz-js.git"
+    "url": "https://github.com/BBC-News/chintz-node.git"
   },
   "keywords": [
     "chintz"
   ],
   "author": "Peter Chamberlin",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BBC-News/chintz-js/issues"
+    "url": "https://github.com/BBC-News/chintz-node/issues"
   },
-  "homepage": "https://github.com/BBC-News/chintz-js",
+  "homepage": "https://github.com/BBC-News/chintz-node",
   "dependencies": {
     "glob": ">= 5.0.5",
     "js-yaml": "",
