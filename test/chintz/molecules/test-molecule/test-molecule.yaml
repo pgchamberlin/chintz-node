@@ -1,0 +1,5 @@
+name: test-molecule
+dependencies:
+  test_deps: [ "test molecule dependency" ]
+  handled_test_deps: [ "an unhandled molecule dependency" ]
+  elements: [ "test-atom" ]

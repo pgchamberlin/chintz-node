@@ -3,8 +3,9 @@ var sinon = require('sinon');
 
 var Chintz = require('../lib/main');
 
-var validElementName = 'test-atom';
-var invalidElementName = 'invalid-element-name';
+var atomName = 'test-atom';
+var moleculeName = 'test-molecule';
+var invalidName = 'invalid-element-name';
 
 var called;
 
@@ -21,7 +22,7 @@ describe('prepare', function() {
     describe('passed an element name', function() {
         it('returns itself', function() {
             var chintz = new Chintz('/../test/chintz');
-            var result = chintz.prepare(validElementName);
+            var result = chintz.prepare(atomName);
             result.should.eql(chintz);
         });
     });
@@ -44,8 +45,8 @@ describe('render', function() {
             };
             called = false;
             new Chintz('/../test/chintz')
-                .prepare(invalidElementName)
-                .render(invalidElementName, null, callback);
+                .prepare(invalidName)
+                .render(invalidName, null, callback);
         });
 
         it('calls back with an empty string', function() {
@@ -67,8 +68,8 @@ describe('render', function() {
                 };
                 called = false;
                 new Chintz('/../test/chintz')
-                    .prepare(validElementName)
-                    .render(validElementName, null, callback);
+                    .prepare(atomName)
+                    .render(atomName, null, callback);
             });
 
             it('calls back with the template', function() {
@@ -88,8 +89,8 @@ describe('render', function() {
                 };
                 called = false;
                 new Chintz('/../test/chintz')
-                    .prepare(validElementName)
-                    .render(validElementName, { non_existent_key: 'blah' }, callback);
+                    .prepare(atomName)
+                    .render(atomName, { non_existent_key: 'blah' }, callback);
             });
 
             it('calls back with the template', function() {
@@ -110,8 +111,76 @@ describe('render', function() {
                 };
                 called = false;
                 new Chintz('/../test/chintz')
-                    .prepare(validElementName)
-                    .render(validElementName, { string: string }, callback);
+                    .prepare(atomName)
+                    .render(atomName, { string: string }, callback);
+            });
+
+            it('calls back with the template, expected', function() {
+                called.should.be.true;
+            });
+        });
+    });
+
+    describe('prepared nested elements', function() {
+
+        describe('with no data', function() {
+
+            var expected = "Test molecule template, with nested Test atom template \n\n";
+
+            beforeEach(function(done) {
+                var callback = function(s) {
+                    called = true;
+                    s.should.eql(expected);
+                    done();
+                };
+                called = false;
+                new Chintz('/../test/chintz')
+                    .prepare(moleculeName)
+                    .render(moleculeName, null, callback);
+            });
+
+            it('calls back with the template', function() {
+                called.should.be.true;
+            });
+        });
+
+        describe('with bad data', function() {
+
+            var expected = "Test molecule template, with nested Test atom template \n\n";
+
+            beforeEach(function(done) {
+                var callback = function(s) {
+                    called = true;
+                    s.should.eql(expected);
+                    done();
+                };
+                called = false;
+                new Chintz('/../test/chintz')
+                    .prepare(moleculeName)
+                    .render(moleculeName, { non_existent_key: 'blah' }, callback);
+            });
+
+            it('calls back with the template', function() {
+                called.should.be.true;
+            });
+        });
+
+        describe('with good data', function() {
+
+            var string = "-- atom string --";
+            var molString = "-- molecule string --";
+            var expected = "Test molecule template, with nested Test atom template " + string + "\n" + molString + "\n";
+
+            beforeEach(function(done) {
+                var callback = function(s) {
+                    called = true;
+                    s.should.eql(expected);
+                    done();
+                };
+                called = false;
+                new Chintz('/../test/chintz')
+                    .prepare(moleculeName)
+                    .render(moleculeName, { string: string, molString: molString }, callback);
             });
 
             it('calls back with the template, expected', function() {
@@ -134,7 +203,7 @@ describe('getDependencies', function() {
             };
             called = false;
             new Chintz('/../test/chintz')
-                .prepare(validElementName)
+                .prepare(atomName)
                 .getDependencies('nonexistent', callback);
         });
 
@@ -154,7 +223,7 @@ describe('getDependencies', function() {
             };
             called = false;
             new Chintz('/../test/chintz')
-                .prepare(validElementName)
+                .prepare(atomName)
                 .getDependencies('test_deps', callback);
         });
 
@@ -183,7 +252,7 @@ describe('getDependencies', function() {
                         }
                     }
                 )
-                .prepare(validElementName)
+                .prepare(atomName)
                 .getDependencies('handled_test_deps', callback);
         });
 
