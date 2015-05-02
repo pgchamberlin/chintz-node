@@ -1,4 +1,4 @@
 # chintz-js
 Node.js Chintz client
 
-[![NPM](https://nodei.co/npm/<package>.png)](https://nodei.co/npm/<package>/)
+[![NPM](https://nodei.co/npm/chintz-js.png)](https://nodei.co/npm/chintz-js/)
