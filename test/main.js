@@ -13,7 +13,7 @@ describe('prepare', function() {
 
     describe('with no arguments', function() {
         it('returns itself', function() {
-            var chintz = new Chintz('/../test/chintz');
+            var chintz = new Chintz(__dirname + '/chintz');
             var result = chintz.prepare();
             result.should.eql(chintz);
         });
@@ -21,7 +21,7 @@ describe('prepare', function() {
 
     describe('passed an element name', function() {
         it('returns itself', function() {
-            var chintz = new Chintz('/../test/chintz');
+            var chintz = new Chintz(__dirname + '/chintz');
             var result = chintz.prepare(atomName);
             result.should.eql(chintz);
         });
@@ -44,7 +44,7 @@ describe('render', function() {
                 done();
             };
             called = false;
-            new Chintz('/../test/chintz')
+            new Chintz(__dirname + '/chintz')
                 .prepare(invalidName)
                 .render(invalidName, null, callback);
         });
@@ -67,7 +67,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(atomName)
                     .render(atomName, null, callback);
             });
@@ -88,7 +88,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(atomName)
                     .render(atomName, { non_existent_key: 'blah' }, callback);
             });
@@ -110,7 +110,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(atomName)
                     .render(atomName, { string: string }, callback);
             });
@@ -134,7 +134,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(moleculeName)
                     .render(moleculeName, null, callback);
             });
@@ -155,7 +155,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(moleculeName)
                     .render(moleculeName, { non_existent_key: 'blah' }, callback);
             });
@@ -178,7 +178,7 @@ describe('render', function() {
                     done();
                 };
                 called = false;
-                new Chintz('/../test/chintz')
+                new Chintz(__dirname + '/chintz')
                     .prepare(moleculeName)
                     .render(moleculeName, { string: string, molString: molString }, callback);
             });
@@ -202,7 +202,7 @@ describe('getDependencies', function() {
                 done();
             };
             called = false;
-            new Chintz('/../test/chintz')
+            new Chintz(__dirname + '/chintz')
                 .prepare(atomName)
                 .getDependencies('nonexistent', callback);
         });
@@ -222,7 +222,7 @@ describe('getDependencies', function() {
                 done();
             };
             called = false;
-            new Chintz('/../test/chintz')
+            new Chintz(__dirname + '/chintz')
                 .prepare(atomName)
                 .getDependencies('test_deps', callback);
         });
@@ -242,7 +242,7 @@ describe('getDependencies', function() {
                 done();
             };
             called = false;
-            new Chintz('/../test/chintz')
+            new Chintz(__dirname + '/chintz')
                 .registerHandlers(
                     {
                         'handled_test_deps': {
